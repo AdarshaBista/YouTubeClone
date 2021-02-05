@@ -1,0 +1,17 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  errors:
+    missing_return: error
+    missing_required_param: error
+
+  exclude:
+    - lib/core/models/*.g.dart
+
+linter:
+  rules:
+    avoid_print: false
+    sort_pub_dependencies: false
+    sort_child_properties_last: false
+    avoid_positional_boolean_parameters: false
+    prefer_if_elements_to_conditional_expressions: false

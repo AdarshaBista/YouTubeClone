@@ -1,0 +1,53 @@
+name: youtube_clone
+description: A clone of the YouTube App.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  device_preview: ^0.6.2-beta
+  flutter_bloc: ^6.1.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  lint: ^1.5.1
+  flutter_native_splash: ^0.2.9
+  flutter_launcher_icons: ^0.8.1
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/icon.png"
+
+flutter_native_splash:
+  image: assets/icons/icon.png
+  color: "000000"
+  android_disable_fullscreen: true
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/logo/
+    - assets/images/channels/
+    - assets/images/video_thumbnails/
+
+  fonts:
+    - family: Sen
+      fonts:
+        - asset: assets/fonts/Sen-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Sen-Regular.ttf
+          weight: 500

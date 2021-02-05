@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Windows",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "windows"
+        },
+        {
+            "name": "Pixel 3",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "emulator-5554"
+        },
+        {
+            "name": "Redmi Note 9 Pro Max",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "c3bf6cab"
+        },
+    ],
+}
