@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:youtube_clone/ui/styles/styles.dart';
 import 'package:youtube_clone/ui/pages/home_page/home_page.dart';
 import 'package:youtube_clone/ui/pages/library_page/library_page.dart';
+import 'package:youtube_clone/ui/pages/bottom_nav_page/widgets/bottom_nav_bar.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage();
@@ -13,58 +15,70 @@ class BottomNavPage extends StatefulWidget {
 class _BottomNavPageState extends State<BottomNavPage> {
   int _selectedIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _buildBottomNavBar(context),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: [
-          const HomePage(),
-          const LibraryPage(),
-          Container(color: Colors.blue),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNavBar(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Divider(height: 1.0),
-          BottomNavigationBar(
-            iconSize: 20.0,
-            items: _bottomNavBarItems,
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  static const _bottomNavBarItems = [
-    BottomNavigationBarItem(
-      label: 'Home',
-      activeIcon: Icon(Icons.home),
-      icon: Icon(Icons.home_outlined),
+  final _tabs = [
+    BottomNavItem(
+      title: 'Home',
+      activeIcon: Icons.home,
+      icon: Icons.home_outlined,
+      child: const HomePage(),
     ),
-    BottomNavigationBarItem(
-      label: 'Library',
-      activeIcon: Icon(Icons.video_library),
-      icon: Icon(Icons.video_library_outlined),
+    BottomNavItem(
+      title: 'Library',
+      activeIcon: Icons.video_library,
+      icon: Icons.video_library_outlined,
+      child: const LibraryPage(),
     ),
-    BottomNavigationBarItem(
-      label: 'Community',
-      activeIcon: Icon(Icons.people_alt),
-      icon: Icon(Icons.people_alt_outlined),
+    BottomNavItem(
+      title: 'Community',
+      activeIcon: Icons.people_alt,
+      icon: Icons.people_alt_outlined,
+      child: Container(color: Colors.green),
     ),
   ];
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onBackButtonPressed,
+      child: Container(
+        color: context.c.background,
+        child: SafeArea(
+          child: Scaffold(
+            bottomNavigationBar: BottomNavBar(
+              tabs: _tabs,
+              onSelect: _selectTab,
+              currentIndex: _selectedIndex,
+            ),
+            body: IndexedStack(
+              index: _selectedIndex,
+              children: _tabs.map((t) => t.page).toList(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _selectTab(int index) {
+    if (index == _selectedIndex) {
+      // Navigate to the first route of the tab.
+      _tabs[index].key.currentState.popUntil((route) => route.isFirst);
+    } else {
+      setState(() => _selectedIndex = index);
+    }
+  }
+
+  Future<bool> _onBackButtonPressed() async {
+    // If the route cannot be popped, we are on the first route of the tab.
+    final isFirstRouteInCurrentTab =
+        !await _tabs[_selectedIndex].key.currentState.maybePop();
+    if (isFirstRouteInCurrentTab) {
+      if (_selectedIndex != 0) {
+        // Navigate to home page.
+        _selectTab(0);
+        return false;
+      }
+    }
+    return isFirstRouteInCurrentTab;
+  }
 }

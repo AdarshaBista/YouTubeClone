@@ -15,7 +15,7 @@ class AppThemes {
         primaryColorDark: AppColors.primaryDark,
         primaryColorLight: AppColors.primaryLight,
         accentColor: AppColors.primary,
-        splashColor: AppColors.primary,
+        splashColor: Colors.transparent,
         errorColor: AppColors.primary,
         indicatorColor: AppColors.primary,
         visualDensity: VisualDensity.standard,

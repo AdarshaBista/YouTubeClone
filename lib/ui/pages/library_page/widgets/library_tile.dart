@@ -24,20 +24,15 @@ class LibraryTile extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Theme(
-        data: context.theme.copyWith(
-          splashColor: Colors.transparent,
-        ),
-        child: ListTile(
-          onTap: onTap,
-          horizontalTitleGap: 10.0,
-          visualDensity: VisualDensity.compact,
-          leading: leading,
-          subtitle: subtitle,
-          title: Text(
-            title,
-            style: context.t.headline5.withColor(effectiveColor),
-          ),
+      child: ListTile(
+        onTap: onTap,
+        horizontalTitleGap: 10.0,
+        visualDensity: VisualDensity.compact,
+        leading: leading,
+        subtitle: subtitle,
+        title: Text(
+          title,
+          style: context.t.headline5.withColor(effectiveColor),
         ),
       ),
     );
