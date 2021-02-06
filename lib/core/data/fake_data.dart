@@ -1,3 +1,5 @@
+import 'package:youtube_clone/core/models/post.dart';
+import 'package:youtube_clone/core/models/user.dart';
 import 'package:youtube_clone/core/models/video.dart';
 import 'package:youtube_clone/core/models/channel.dart';
 import 'package:youtube_clone/core/models/playlist.dart';
@@ -169,6 +171,39 @@ class FakeData {
       videoCount: 74,
       name: 'Music 2',
       imageUrl: 'assets/images/video_thumbnails/mr_suicide_sheep1.jpg',
+    ),
+  ];
+
+  static const user = User(
+    id: '23abcefd',
+    name: 'Marques Brownlee',
+    avatarUrl: 'assets/images/channels/mkbhd.jpg',
+  );
+
+  static final posts = [
+    Post(
+      id: '1',
+      user: user,
+      dateUpdated: DateTime.now(),
+      text: 'Check out my new video. Out now...',
+    ),
+    Post(
+      id: '2',
+      user: user,
+      dateUpdated: DateTime.now(),
+      text: 'Check out my new video. Out now ',
+      imageUrls: ['assets/images/video_thumbnails/mkbhd1.jpg'],
+    ),
+    Post(
+      id: '3',
+      user: user,
+      dateUpdated: DateTime.now(),
+      text: 'Check out my new video. Out now',
+      imageUrls: [
+        'assets/images/video_thumbnails/mkbhd1.jpg',
+        'assets/images/video_thumbnails/lsoo1.jpg',
+        'assets/images/video_thumbnails/lemmino1.jpg',
+      ],
     ),
   ];
 }

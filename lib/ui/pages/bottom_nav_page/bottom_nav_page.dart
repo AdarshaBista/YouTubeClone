@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:youtube_clone/ui/styles/styles.dart';
+import 'package:youtube_clone/ui/pages/bottom_nav_page/widgets/bottom_nav_bar.dart';
+
 import 'package:youtube_clone/ui/pages/home_page/home_page.dart';
 import 'package:youtube_clone/ui/pages/library_page/library_page.dart';
-import 'package:youtube_clone/ui/pages/bottom_nav_page/widgets/bottom_nav_bar.dart';
+import 'package:youtube_clone/ui/pages/community_page/community_page.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage();
@@ -32,7 +34,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
       title: 'Community',
       activeIcon: Icons.people_alt,
       icon: Icons.people_alt_outlined,
-      child: Container(color: Colors.green),
+      child: const CommunityPage(),
     ),
   ];
 
