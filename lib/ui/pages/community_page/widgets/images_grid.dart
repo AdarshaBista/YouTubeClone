@@ -2,8 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import 'package:youtube_clone/ui/styles/styles.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:youtube_clone/ui/styles/styles.dart';
+import 'package:youtube_clone/ui/widgets/common/gallery_view.dart';
 
 class ImagesGrid extends StatelessWidget {
   final List<String> imageUrls;
@@ -39,7 +40,7 @@ class ImagesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrls.length == 1) return _buildImage(imageUrls.first);
+    if (imageUrls.length == 1) return _buildImage(context, 0);
 
     final maxImages = math.min(imageUrls.length, _layout.length + 1);
     return StaggeredGridView.countBuilder(
@@ -55,46 +56,62 @@ class ImagesGrid extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, int index, int maxImages) {
-    final imageUrl = imageUrls[index];
-
-    if (index + 1 < maxImages) return _buildImage(imageUrl);
+    if (index + 1 < maxImages) return _buildImage(context, index);
 
     final remaining = imageUrls.length - maxImages;
-    if (remaining == 0) return _buildImage(imageUrl);
+    if (remaining == 0) return _buildImage(context, index);
 
-    return _buildRemaining(remaining, imageUrl);
+    return _buildRemaining(context, remaining, index);
   }
 
-  Widget _buildRemaining(int remaining, String imageUrl) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(imageUrl),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            AppColors.darkFaded,
-            BlendMode.srcATop,
+  Widget _buildRemaining(BuildContext context, int remaining, int index) {
+    return GestureDetector(
+      onTap: () => _openGallery(context, index),
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageUrls[index]),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              AppColors.darkFaded,
+              BlendMode.srcATop,
+            ),
           ),
         ),
-      ),
-      child: Text(
-        '+$remaining',
-        style: AppTextStyles.headline1.light.thin,
+        child: Text(
+          '+$remaining',
+          style: AppTextStyles.headline1.light.thin,
+        ),
       ),
     );
   }
 
-  Widget _buildImage(String imageUrl) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: 80.0,
-        maxHeight: 500.0,
+  Widget _buildImage(BuildContext context, int index) {
+    return GestureDetector(
+      onTap: () => _openGallery(context, index),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minHeight: 80.0,
+          maxHeight: 500.0,
+        ),
+        child: Image.asset(
+          imageUrls[index],
+          fit: BoxFit.cover,
+        ),
       ),
-      child: Image.asset(
-        imageUrl,
-        fit: BoxFit.cover,
-      ),
+    );
+  }
+
+  void _openGallery(BuildContext context, int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return GalleryView(
+          initialIndex: index,
+          imageUrls: imageUrls,
+        );
+      },
     );
   }
 }
