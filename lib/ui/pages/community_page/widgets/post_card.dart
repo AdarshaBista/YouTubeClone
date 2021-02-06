@@ -25,10 +25,7 @@ class PostCard extends StatelessWidget {
           _buildText(context),
           if (post.imageUrls.isNotEmpty) ...[
             const SizedBox(height: 10.0),
-            ImagesGrid(
-              maxImages: 4,
-              imageUrls: post.imageUrls,
-            ),
+            ImagesGrid(imageUrls: post.imageUrls),
           ],
           const SizedBox(height: 10.0),
           const Divider(),
