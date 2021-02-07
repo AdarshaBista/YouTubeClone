@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:youtube_clone/ui/styles/styles.dart';
 import 'package:youtube_clone/ui/widgets/common/gallery_view.dart';
+import 'package:youtube_clone/ui/widgets/common/elevated_card.dart';
 
 class ImagesGrid extends StatelessWidget {
   final List<String> imageUrls;
@@ -47,8 +48,8 @@ class ImagesGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 6,
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
+      mainAxisSpacing: 6.0,
+      crossAxisSpacing: 6.0,
       itemCount: maxImages,
       staggeredTileBuilder: (int index) => _layout[maxImages][index],
       itemBuilder: (context, index) => _buildItem(context, index, maxImages),
@@ -65,39 +66,43 @@ class ImagesGrid extends StatelessWidget {
   }
 
   Widget _buildRemaining(BuildContext context, int remaining, int index) {
-    return GestureDetector(
-      onTap: () => _openGallery(context, index),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(imageUrls[index]),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              AppColors.darkFaded,
-              BlendMode.srcATop,
+    return ElevatedCard(
+      child: GestureDetector(
+        onTap: () => _openGallery(context, index),
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(imageUrls[index]),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                AppColors.darkFaded,
+                BlendMode.srcATop,
+              ),
             ),
           ),
-        ),
-        child: Text(
-          '+$remaining',
-          style: AppTextStyles.headline1.light.thin,
+          child: Text(
+            '+$remaining',
+            style: AppTextStyles.headline1.light.thin,
+          ),
         ),
       ),
     );
   }
 
   Widget _buildImage(BuildContext context, int index) {
-    return GestureDetector(
-      onTap: () => _openGallery(context, index),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          minHeight: 80.0,
-          maxHeight: 500.0,
-        ),
-        child: Image.asset(
-          imageUrls[index],
-          fit: BoxFit.cover,
+    return ElevatedCard(
+      child: GestureDetector(
+        onTap: () => _openGallery(context, index),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minHeight: 80.0,
+            maxHeight: 500.0,
+          ),
+          child: Image.asset(
+            imageUrls[index],
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );

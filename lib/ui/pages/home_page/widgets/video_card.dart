@@ -22,6 +22,7 @@ class VideoCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           VideoThumbnail(
+            borderRadius: 0.0,
             duration: video.duration,
             imageUrl: video.thumbnailUrl,
           ),
