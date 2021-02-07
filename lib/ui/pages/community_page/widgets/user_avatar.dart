@@ -9,7 +9,7 @@ class UserAvatar extends StatelessWidget {
 
   const UserAvatar({
     @required this.username,
-    @required this.imageUrl,
+    this.imageUrl,
   }) : assert(username != null);
 
   @override

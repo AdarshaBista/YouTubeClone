@@ -257,12 +257,6 @@ class AppThemes {
         clipBehavior: Clip.antiAlias,
         backgroundColor: AppColors.light,
         modalBackgroundColor: AppColors.light,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12.0),
-            topRight: Radius.circular(12.0),
-          ),
-        ),
       );
 
   static BottomSheetThemeData get _darkBottomSheetTheme =>

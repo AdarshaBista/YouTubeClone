@@ -20,6 +20,8 @@ class PostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const Divider(),
+          const SizedBox(height: 10.0),
           _buildUserInfo(context),
           const SizedBox(height: 10.0),
           _buildText(context),
@@ -27,8 +29,6 @@ class PostCard extends StatelessWidget {
             const SizedBox(height: 10.0),
             ImagesGrid(imageUrls: post.imageUrls),
           ],
-          const SizedBox(height: 10.0),
-          const Divider(),
         ],
       ),
     );
