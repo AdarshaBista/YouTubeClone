@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:youtube_clone/core/models/user.dart';
@@ -14,14 +12,27 @@ class Post {
   String get timeAgo => timeago.format(dateUpdated);
 
   const Post({
-    @required this.id,
-    @required this.text,
-    @required this.user,
-    @required this.dateUpdated,
+    this.id,
+    this.user,
+    this.dateUpdated,
+    this.text = '',
     this.imageUrls = const [],
-  })  : assert(id != null),
-        assert(text != null),
-        assert(user != null),
-        assert(imageUrls != null),
-        assert(dateUpdated != null);
+  })  : assert(text != null),
+        assert(imageUrls != null);
+
+  Post copyWith({
+    User user,
+    String id,
+    String text,
+    DateTime dateUpdated,
+    List<String> imageUrls,
+  }) {
+    return Post(
+      id: id ?? this.id,
+      user: user ?? this.user,
+      text: text ?? this.text,
+      imageUrls: imageUrls ?? this.imageUrls,
+      dateUpdated: dateUpdated ?? this.dateUpdated,
+    );
+  }
 }

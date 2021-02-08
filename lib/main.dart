@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:youtube_clone/core/constants/configs.dart';
+import 'package:youtube_clone/core/services/posts_service.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_clone/cubits/posts_cubit/posts_cubit.dart';
 import 'package:youtube_clone/cubits/theme_cubit/theme_cubit.dart';
 
 import 'package:device_preview/device_preview.dart';
@@ -19,8 +21,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(
+          create: (_) => PostsCubit(
+            postsService: PostsService(),
+          )..fetchPosts(),
+        ),
+      ],
       child: DevicePreview(
         enabled: Platform.isWindows,
         storage: FileDevicePreviewStorage(
