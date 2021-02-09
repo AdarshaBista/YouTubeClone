@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:youtube_clone/core/services/posts_service.dart';
+import 'package:youtube_clone/core/services/image_picker_service.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_clone/cubits/post_form_cubit/post_form_cubit.dart';
@@ -62,6 +63,7 @@ class CreatePostPrompt extends StatelessWidget {
         return BlocProvider(
           create: (_) => PostFormCubit(
             postsService: context.read<PostsService>(),
+            imagePickerService: context.read<ImagePickerService>(),
           ),
           child: const PostForm(),
         );

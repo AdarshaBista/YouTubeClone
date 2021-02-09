@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +20,14 @@ class ImageCard extends StatelessWidget {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        ElevatedCard(
-          margin: const EdgeInsets.all(6.0),
-          child: Image.asset(
-            imageUrl,
-            fit: BoxFit.cover,
+        AspectRatio(
+          aspectRatio: 1,
+          child: ElevatedCard(
+            margin: const EdgeInsets.all(6.0),
+            child: Image.file(
+              File(imageUrl),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         GestureDetector(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_clone/cubits/post_form_cubit/post_form_cubit.dart';
+
 import 'package:youtube_clone/ui/styles/styles.dart';
 
 class AddImageOptions extends StatelessWidget {
@@ -13,14 +16,14 @@ class AddImageOptions extends StatelessWidget {
           label: 'Add image',
           color: Colors.green,
           icon: Icons.photo_outlined,
-          onTap: () {},
+          onTap: () => context.read<PostFormCubit>().openGallery(),
         ),
         const Divider(),
         _ImageOptionTile(
           label: 'Open Camera',
           color: Colors.blue,
           icon: Icons.camera_alt_outlined,
-          onTap: () {},
+          onTap: () => context.read<PostFormCubit>().openCamera(),
         ),
       ],
     );

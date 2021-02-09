@@ -19,8 +19,9 @@ class ImagesList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             itemCount: imageUrls.length,
-            itemBuilder: (context, index) =>
-                ImageCard(imageUrl: imageUrls[index]),
+            itemBuilder: (context, index) {
+              return ImageCard(imageUrl: imageUrls[index]);
+            },
           );
         },
       ),

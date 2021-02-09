@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:youtube_clone/core/constants/configs.dart';
 import 'package:youtube_clone/core/services/posts_service.dart';
+import 'package:youtube_clone/core/services/image_picker_service.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_clone/cubits/posts_cubit/posts_cubit.dart';
@@ -16,8 +17,11 @@ import 'package:youtube_clone/ui/pages/bottom_nav_page/bottom_nav_page.dart';
 
 void main() {
   runApp(
-    RepositoryProvider(
-      create: (_) => PostsService(),
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (_) => PostsService()),
+        RepositoryProvider(create: (_) => ImagePickerService()),
+      ],
       child: const App(),
     ),
   );
