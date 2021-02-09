@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:youtube_clone/core/services/posts_service.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_clone/cubits/post_form_cubit/post_form_cubit.dart';
+
 import 'package:youtube_clone/ui/styles/styles.dart';
 import 'package:youtube_clone/ui/pages/community_page/widgets/user_avatar.dart';
 import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/post_form.dart';
@@ -53,7 +58,14 @@ class CreatePostPrompt extends StatelessWidget {
       context: context,
       enableDrag: false,
       isScrollControlled: true,
-      builder: (context) => const PostForm(),
+      builder: (context) {
+        return BlocProvider(
+          create: (_) => PostFormCubit(
+            postsService: context.read<PostsService>(),
+          ),
+          child: const PostForm(),
+        );
+      },
     );
   }
 }

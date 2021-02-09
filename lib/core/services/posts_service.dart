@@ -1,15 +1,17 @@
 import 'package:youtube_clone/core/models/post.dart';
 
-import 'package:youtube_clone/core/data/fake_data.dart';
-
 class PostsService {
+  int id = 0;
+  final List<Post> posts = [];
+
   Future<List<Post>> fetchPosts() async {
     await Future.delayed(const Duration(seconds: 3));
-    return FakeData.posts;
+    return posts;
   }
 
   Future<String> createPost(Post post) async {
-    return '';
+    id++;
+    return id.toString();
   }
 
   Future<void> updatePost(Post post) async {}

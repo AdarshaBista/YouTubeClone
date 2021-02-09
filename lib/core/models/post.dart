@@ -3,15 +3,15 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:youtube_clone/core/models/user.dart';
 
 class Post {
+  String id;
   final User user;
-  final String id;
   final String text;
   final DateTime dateUpdated;
   final List<String> imageUrls;
 
   String get timeAgo => timeago.format(dateUpdated);
 
-  const Post({
+  Post({
     this.id,
     this.user,
     this.dateUpdated,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_clone/cubits/post_form_cubit/post_form_cubit.dart';
+
 import 'package:youtube_clone/ui/styles/styles.dart';
 
 class FormTextField extends StatelessWidget {
@@ -17,6 +20,7 @@ class FormTextField extends StatelessWidget {
         return TextField(
           style: textStyle,
           maxLines: maxLines,
+          onChanged: (value) => context.read<PostFormCubit>().changeText(value),
           decoration: InputDecoration(
             hintStyle: textStyle,
             fillColor: context.c.background,

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:youtube_clone/ui/styles/styles.dart';
 import 'package:youtube_clone/ui/pages/community_page/widgets/user_avatar.dart';
+import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/images_list.dart';
 import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/form_text_field.dart';
-import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/add_image_button.dart';
+import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/add_image_options.dart';
 
 class PostForm extends StatelessWidget {
   const PostForm();
@@ -18,8 +19,9 @@ class PostForm extends StatelessWidget {
           const SizedBox(height: 8.0),
           _buildUserInfo(context),
           const Expanded(child: FormTextField()),
+          const ImagesList(),
           const Divider(),
-          const AddImageButton(),
+          const AddImageOptions(),
         ],
       ),
     );

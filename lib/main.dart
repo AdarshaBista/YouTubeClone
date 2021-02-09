@@ -14,7 +14,14 @@ import 'package:youtube_clone/ui/styles/styles.dart';
 
 import 'package:youtube_clone/ui/pages/bottom_nav_page/bottom_nav_page.dart';
 
-void main() => runApp(const App());
+void main() {
+  runApp(
+    RepositoryProvider(
+      create: (_) => PostsService(),
+      child: const App(),
+    ),
+  );
+}
 
 class App extends StatelessWidget {
   const App();
@@ -26,7 +33,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(
           create: (_) => PostsCubit(
-            postsService: PostsService(),
+            postsService: context.read<PostsService>(),
           )..fetchPosts(),
         ),
       ],
