@@ -17,16 +17,19 @@ class FormTextField extends StatelessWidget {
         final maxLines =
             constraints.minHeight ~/ (textScaleFactor * textStyle.fontSize);
 
+        final postFormCubit =
+            BlocProvider.of<PostFormCubit>(context, listen: false);
+
         return TextFormField(
-          initialValue: '',
+          initialValue: postFormCubit.state.text,
           style: textStyle,
           maxLines: maxLines,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
-            if (value.trim().isEmpty) return 'Field must not be empty!';
+            if (value.trim().isEmpty) return 'Text must not be empty!';
             return null;
           },
-          onChanged: (value) => context.read<PostFormCubit>().changeText(value),
+          onChanged: (value) => postFormCubit.changeText(value),
           decoration: InputDecoration(
             hintStyle: textStyle,
             fillColor: context.c.background,

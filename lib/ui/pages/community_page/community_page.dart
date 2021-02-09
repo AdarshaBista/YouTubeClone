@@ -32,7 +32,7 @@ class CommunityPage extends StatelessWidget {
         } else if (state is PostsError) {
           return _buildMessage(context, state.message);
         } else if (state is PostsLoaded) {
-          return _buildList(state.posts);
+          return _buildList(state.posts.reversed.toList());
         } else {
           return _buildSliverWrapper(const CircularProgressIndicator());
         }

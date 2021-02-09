@@ -19,15 +19,36 @@ class PostsCubit extends Cubit<PostsState> {
   Future<void> fetchPosts() async {
     emit(const PostsLoading());
     try {
-      final posts = await postsService.fetchPosts();
-      if (posts.isNotEmpty) {
-        emit(PostsLoaded(posts: posts));
-      } else {
+      await postsService.fetchPosts();
+      if (postsService.posts.isEmpty) {
         emit(const PostsEmpty());
+      } else {
+        emit(PostsLoaded(posts: postsService.posts));
       }
     } catch (e) {
       debugPrint(e.toString());
       emit(const PostsError(message: 'Something went wrong!'));
+    }
+  }
+
+  Future<void> createPost(Post post) async {
+    emit(const PostsLoading());
+    await postsService.createPost(post);
+    emit(PostsLoaded(posts: postsService.posts));
+  }
+
+  Future<void> updatePost(Post post) async {
+    emit(const PostsLoading());
+    await postsService.updatePost(post);
+    emit(PostsLoaded(posts: postsService.posts));
+  }
+
+  void deletePost(Post post) {
+    postsService.deletePost(post);
+    if (postsService.posts.isEmpty) {
+      emit(const PostsEmpty());
+    } else {
+      emit(PostsLoaded(posts: postsService.posts));
     }
   }
 }

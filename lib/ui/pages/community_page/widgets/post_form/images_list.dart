@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:youtube_clone/core/models/post.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_clone/cubits/post_form_cubit/post_form_cubit.dart';
 
@@ -10,7 +12,7 @@ class ImagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostFormCubit, PostFormState>(
+    return BlocBuilder<PostFormCubit, Post>(
       builder: (context, state) {
         final imageUrls = state.imageUrls;
         if (imageUrls.isEmpty) return const Offstage();

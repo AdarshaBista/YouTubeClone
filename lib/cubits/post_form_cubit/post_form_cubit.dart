@@ -1,24 +1,21 @@
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
-import 'package:youtube_clone/core/data/fake_data.dart';
-
 import 'package:youtube_clone/core/models/post.dart';
 import 'package:youtube_clone/core/services/posts_service.dart';
 import 'package:youtube_clone/core/services/image_picker_service.dart';
 
-part 'post_form_state.dart';
-
-class PostFormCubit extends Cubit<PostFormState> {
+class PostFormCubit extends Cubit<Post> {
   final PostsService postsService;
   final ImagePickerService imagePickerService;
 
   PostFormCubit({
+    Post post,
     @required this.postsService,
     @required this.imagePickerService,
   })  : assert(postsService != null),
         assert(imagePickerService != null),
-        super(PostFormState(text: '', imageUrls: const []));
+        super(post ?? Post());
 
   void changeText(String text) {
     emit(state.copyWith(text: text));
@@ -27,7 +24,8 @@ class PostFormCubit extends Cubit<PostFormState> {
   void removeImage(String url) {
     final imageUrls = List<String>.from(state.imageUrls);
     imageUrls.remove(url);
-    emit(state.copyWith(imageUrls: imageUrls));
+    final post = state.copyWith(imageUrls: imageUrls);
+    emit(post);
   }
 
   Future<void> openGallery() async {
@@ -43,6 +41,7 @@ class PostFormCubit extends Cubit<PostFormState> {
   void _addImages(List<String> urls) {
     final imageUrls = List<String>.from(state.imageUrls);
     imageUrls.addAll(urls);
-    emit(state.copyWith(imageUrls: imageUrls));
+    final post = state.copyWith(imageUrls: imageUrls);
+    emit(post);
   }
 }

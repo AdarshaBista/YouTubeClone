@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -99,8 +100,8 @@ class ImagesGrid extends StatelessWidget {
             minHeight: 80.0,
             maxHeight: 500.0,
           ),
-          child: Image.asset(
-            imageUrls[index],
+          child: Image.file(
+            File(imageUrls[index]),
             fit: BoxFit.cover,
           ),
         ),

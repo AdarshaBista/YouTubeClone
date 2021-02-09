@@ -1,20 +1,35 @@
 import 'package:youtube_clone/core/models/post.dart';
 
+import 'package:youtube_clone/core/data/fake_data.dart';
+
 class PostsService {
-  int id = 0;
   final List<Post> posts = [];
 
-  Future<List<Post>> fetchPosts() async {
-    await Future.delayed(const Duration(seconds: 3));
-    return posts;
+  int id = 0;
+
+  Future<void> fetchPosts() async {
+    await Future.delayed(const Duration(seconds: 1));
   }
 
-  Future<String> createPost(Post post) async {
+  Future<void> createPost(Post post) async {
+    await Future.delayed(const Duration(seconds: 1));
+    final validPost = post.copyWith(
+      id: id.toString(),
+      user: FakeData.user,
+      dateUpdated: DateTime.now(),
+    );
+    posts.add(validPost);
     id++;
-    return id.toString();
   }
 
-  Future<void> updatePost(Post post) async {}
+  Future<void> updatePost(Post updatedPost) async {
+    await Future.delayed(const Duration(seconds: 1));
+    final oldPostIndex = posts.indexWhere((p) => p.id == updatedPost.id);
+    posts.removeAt(oldPostIndex);
+    posts.insert(oldPostIndex, updatedPost);
+  }
 
-  Future<void> deletePost(Post post) async {}
+  void deletePost(Post post) {
+    posts.remove(post);
+  }
 }

@@ -54,12 +54,12 @@ class _ImageOptionTile extends StatelessWidget {
       horizontalTitleGap: 0.0,
       leading: Icon(
         icon,
-        size: 24.0,
+        size: 20.0,
         color: color,
       ),
       title: Text(
         label,
-        style: context.t.headline4,
+        style: context.t.headline5,
       ),
     );
   }
