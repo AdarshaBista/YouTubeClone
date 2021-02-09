@@ -7,22 +7,29 @@ import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/form_tex
 import 'package:youtube_clone/ui/pages/community_page/widgets/post_form/add_image_options.dart';
 
 class PostForm extends StatelessWidget {
-  const PostForm();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  PostForm();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppbar(context),
-      body: Column(
-        children: [
-          const Divider(),
-          const SizedBox(height: 8.0),
-          _buildUserInfo(context),
-          const Expanded(child: FormTextField()),
-          const ImagesList(),
-          const Divider(),
-          const AddImageOptions(),
-        ],
+      body: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          children: [
+            const Divider(),
+            const SizedBox(height: 8.0),
+            _buildUserInfo(context),
+            const Expanded(child: FormTextField()),
+            const SizedBox(height: 8.0),
+            const ImagesList(),
+            const Divider(),
+            const AddImageOptions(),
+          ],
+        ),
       ),
     );
   }
@@ -35,7 +42,7 @@ class PostForm extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () => _createPost(context),
           child: Text(
             'POST',
             style: context.t.headline5.bold,
@@ -53,5 +60,12 @@ class PostForm extends StatelessWidget {
         style: context.t.headline4,
       ),
     );
+  }
+
+  void _createPost(BuildContext context) {
+    if (!_formKey.currentState.validate()) {
+      print('Invalid');
+      return;
+    }
   }
 }

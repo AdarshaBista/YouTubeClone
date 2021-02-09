@@ -65,7 +65,7 @@ class CreatePostPrompt extends StatelessWidget {
             postsService: context.read<PostsService>(),
             imagePickerService: context.read<ImagePickerService>(),
           ),
-          child: const PostForm(),
+          child: PostForm(),
         );
       },
     );

@@ -10,21 +10,23 @@ class ImagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100.0,
-      child: BlocBuilder<PostFormCubit, PostFormState>(
-        builder: (context, state) {
-          final imageUrls = state.imageUrls;
-          return ListView.builder(
+    return BlocBuilder<PostFormCubit, PostFormState>(
+      builder: (context, state) {
+        final imageUrls = state.imageUrls;
+        if (imageUrls.isEmpty) return const Offstage();
+
+        return SizedBox(
+          height: 100.0,
+          child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             itemCount: imageUrls.length,
             itemBuilder: (context, index) {
               return ImageCard(imageUrl: imageUrls[index]);
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
