@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:youtube_clone/core/constants/configs.dart';
 import 'package:youtube_clone/core/services/posts_service.dart';
 import 'package:youtube_clone/core/services/image_picker_service.dart';
@@ -15,7 +17,10 @@ import 'package:youtube_clone/ui/styles/styles.dart';
 
 import 'package:youtube_clone/ui/pages/bottom_nav_page/bottom_nav_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MultiRepositoryProvider(
       providers: [
@@ -38,7 +43,7 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (_) => PostsCubit(
             postsService: context.read<PostsService>(),
-          )..fetchPosts(),
+          )..watchPosts(),
         ),
       ],
       child: DevicePreview(

@@ -87,9 +87,10 @@ class PostForm extends StatelessWidget {
   Future<void> _createPost(BuildContext context) async {
     if (!_formKey.currentState.validate()) return;
     final post = context.read<PostFormCubit>().state;
+    final deletedImageUrls = context.read<PostFormCubit>().deletedImageUrls;
 
     if (isEditMode) {
-      await context.read<PostsCubit>().updatePost(post);
+      await context.read<PostsCubit>().updatePost(post, deletedImageUrls);
     } else {
       await context.read<PostsCubit>().createPost(post);
     }

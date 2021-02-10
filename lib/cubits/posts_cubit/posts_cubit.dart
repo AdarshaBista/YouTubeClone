@@ -16,15 +16,16 @@ class PostsCubit extends Cubit<PostsState> {
   })  : assert(postsService != null),
         super(const PostsEmpty());
 
-  Future<void> fetchPosts() async {
+  Future<void> watchPosts() async {
     emit(const PostsLoading());
     try {
-      await postsService.fetchPosts();
-      if (postsService.posts.isEmpty) {
-        emit(const PostsEmpty());
-      } else {
-        emit(PostsLoaded(posts: postsService.posts));
-      }
+      postsService.watchPosts().listen((posts) {
+        if (posts.isEmpty) {
+          emit(const PostsEmpty());
+        } else {
+          emit(PostsLoaded(posts: posts));
+        }
+      });
     } catch (e) {
       debugPrint(e.toString());
       emit(const PostsError(message: 'Something went wrong!'));
@@ -34,21 +35,14 @@ class PostsCubit extends Cubit<PostsState> {
   Future<void> createPost(Post post) async {
     emit(const PostsLoading());
     await postsService.createPost(post);
-    emit(PostsLoaded(posts: postsService.posts));
   }
 
-  Future<void> updatePost(Post post) async {
+  Future<void> updatePost(Post post, List<String> deletedImageUrls) async {
     emit(const PostsLoading());
-    await postsService.updatePost(post);
-    emit(PostsLoaded(posts: postsService.posts));
+    await postsService.updatePost(post, deletedImageUrls);
   }
 
-  void deletePost(Post post) {
-    postsService.deletePost(post);
-    if (postsService.posts.isEmpty) {
-      emit(const PostsEmpty());
-    } else {
-      emit(PostsLoaded(posts: postsService.posts));
-    }
+  Future<void> deletePost(Post post) async {
+    await postsService.deletePost(post);
   }
 }

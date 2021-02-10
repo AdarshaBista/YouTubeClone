@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -74,7 +73,7 @@ class ImagesGrid extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(imageUrls[index]),
+              image: NetworkImage(imageUrls[index]),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                 AppColors.darkFaded,
@@ -100,8 +99,8 @@ class ImagesGrid extends StatelessWidget {
             minHeight: 80.0,
             maxHeight: 500.0,
           ),
-          child: Image.file(
-            File(imageUrls[index]),
+          child: Image.network(
+            imageUrls[index],
             fit: BoxFit.cover,
           ),
         ),

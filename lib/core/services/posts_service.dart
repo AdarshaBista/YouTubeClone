@@ -1,35 +1,52 @@
-import 'package:youtube_clone/core/models/post.dart';
-
 import 'package:youtube_clone/core/data/fake_data.dart';
 
+import 'package:youtube_clone/core/models/post.dart';
+import 'package:youtube_clone/core/services/storage_service.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PostsService {
-  final List<Post> posts = [];
+  static const collection = 'posts';
 
-  int id = 0;
+  final storageService = StorageService(collection);
+  final postsCollection = FirebaseFirestore.instance.collection(collection);
 
-  Future<void> fetchPosts() async {
-    await Future.delayed(const Duration(seconds: 1));
+  Stream<List<Post>> watchPosts() {
+    return postsCollection.snapshots().map((snapshot) {
+      final posts = snapshot.docs.map((doc) => Post.fromDocument(doc)).toList();
+      posts.sort((a, b) => a.updatedAt.compareTo(b.updatedAt));
+      return posts;
+    });
   }
 
   Future<void> createPost(Post post) async {
-    await Future.delayed(const Duration(seconds: 1));
-    final validPost = post.copyWith(
-      id: id.toString(),
+    final uploadedImageUrls = await storageService.uploadImages(post.imageUrls);
+    final newPost = post.copyWith(
       user: FakeData.user,
-      dateUpdated: DateTime.now(),
+      updatedAt: DateTime.now(),
+      imageUrls: uploadedImageUrls,
     );
-    posts.add(validPost);
-    id++;
+
+    await postsCollection.add(newPost.toMap());
   }
 
-  Future<void> updatePost(Post updatedPost) async {
-    await Future.delayed(const Duration(seconds: 1));
-    final oldPostIndex = posts.indexWhere((p) => p.id == updatedPost.id);
-    posts.removeAt(oldPostIndex);
-    posts.insert(oldPostIndex, updatedPost);
+  Future<void> updatePost(Post post, List<String> deletedImageUrls) async {
+    final oldImageUrls = post.imageUrls.where((url) => url.startsWith('http'));
+    final newImageUrls = post.imageUrls.where((url) => !url.startsWith('http'));
+
+    final uploadedImageUrls =
+        await storageService.uploadImages(newImageUrls.toList());
+    await storageService.deleteImages(deletedImageUrls);
+
+    final updatedPost = post.copyWith(
+      updatedAt: DateTime.now(),
+      imageUrls: [...oldImageUrls, ...uploadedImageUrls],
+    );
+    await postsCollection.doc(post.id).update(updatedPost.toMap());
   }
 
-  void deletePost(Post post) {
-    posts.remove(post);
+  Future<void> deletePost(Post post) async {
+    await postsCollection.doc(post.id).delete();
+    await storageService.deleteImages(post.imageUrls);
   }
 }

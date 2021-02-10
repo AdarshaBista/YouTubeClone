@@ -20,6 +20,7 @@ class CommunityPage extends StatelessWidget {
         const PersistentAppbar(),
         const SliverToBoxAdapter(child: CreatePostPrompt()),
         _buildPostsState(),
+        const SliverPadding(padding: EdgeInsets.only(bottom: 16.0)),
       ],
     );
   }

@@ -1,5 +1,8 @@
 temp/
 
+# Google services
+android/app/google-services.json
+
 # Miscellaneous
 *.class
 *.log

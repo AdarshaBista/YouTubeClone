@@ -41,7 +41,7 @@ class _GalleryViewState extends State<GalleryView> {
       backgroundDecoration: BoxDecoration(color: AppColors.darkFaded),
       builder: (context, index) {
         return PhotoViewGalleryPageOptions(
-          imageProvider: AssetImage(widget.imageUrls[index]),
+          imageProvider: NetworkImage(widget.imageUrls[index]),
           maxScale: PhotoViewComputedScale.covered * 2.5,
           minScale: PhotoViewComputedScale.contained * 0.6,
           initialScale: PhotoViewComputedScale.contained * 1.0,

@@ -8,6 +8,7 @@ import 'package:youtube_clone/core/services/image_picker_service.dart';
 class PostFormCubit extends Cubit<Post> {
   final PostsService postsService;
   final ImagePickerService imagePickerService;
+  final List<String> deletedImageUrls = [];
 
   PostFormCubit({
     Post post,
@@ -24,8 +25,8 @@ class PostFormCubit extends Cubit<Post> {
   void removeImage(String url) {
     final imageUrls = List<String>.from(state.imageUrls);
     imageUrls.remove(url);
-    final post = state.copyWith(imageUrls: imageUrls);
-    emit(post);
+    deletedImageUrls.add(url);
+    emit(state.copyWith(imageUrls: imageUrls));
   }
 
   Future<void> openGallery() async {
@@ -41,7 +42,6 @@ class PostFormCubit extends Cubit<Post> {
   void _addImages(List<String> urls) {
     final imageUrls = List<String>.from(state.imageUrls);
     imageUrls.addAll(urls);
-    final post = state.copyWith(imageUrls: imageUrls);
-    emit(post);
+    emit(state.copyWith(imageUrls: imageUrls));
   }
 }

@@ -174,7 +174,6 @@ class FakeData {
   ];
 
   static const user = User(
-    id: '23abcefd',
     name: 'Marques Brownlee',
     avatarUrl: 'assets/images/channels/mkbhd.jpg',
   );

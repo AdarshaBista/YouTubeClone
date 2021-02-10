@@ -1,20 +1,21 @@
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:youtube_clone/core/models/user.dart';
 
 class Post {
-  String id;
+  final String id;
   final User user;
   final String text;
-  final DateTime dateUpdated;
+  final DateTime updatedAt;
   final List<String> imageUrls;
 
-  String get timeAgo => timeago.format(dateUpdated);
+  String get timeAgo => timeago.format(updatedAt);
 
   Post({
     this.id,
     this.user,
-    this.dateUpdated,
+    this.updatedAt,
     this.text = '',
     this.imageUrls = const [],
   })  : assert(text != null),
@@ -24,7 +25,7 @@ class Post {
     User user,
     String id,
     String text,
-    DateTime dateUpdated,
+    DateTime updatedAt,
     List<String> imageUrls,
   }) {
     return Post(
@@ -32,7 +33,27 @@ class Post {
       user: user ?? this.user,
       text: text ?? this.text,
       imageUrls: imageUrls ?? this.imageUrls,
-      dateUpdated: dateUpdated ?? this.dateUpdated,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'text': text,
+      'user': user?.toMap(),
+      'imageUrls': imageUrls,
+      'updatedAt': updatedAt?.millisecondsSinceEpoch,
+    };
+  }
+
+  factory Post.fromDocument(DocumentSnapshot snapshot) {
+    final data = snapshot.data();
+    return Post(
+      id: snapshot.id,
+      text: data['text'] as String,
+      imageUrls: List<String>.from(data['imageUrls'] as List),
+      user: User.fromMap(data['user'] as Map<String, dynamic>),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(data['updatedAt'] as int),
     );
   }
 }

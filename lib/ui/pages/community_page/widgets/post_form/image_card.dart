@@ -24,10 +24,7 @@ class ImageCard extends StatelessWidget {
           aspectRatio: 1,
           child: ElevatedCard(
             margin: const EdgeInsets.all(6.0),
-            child: Image.file(
-              File(imageUrl),
-              fit: BoxFit.cover,
-            ),
+            child: _buildImage(imageUrl),
           ),
         ),
         GestureDetector(
@@ -43,6 +40,19 @@ class ImageCard extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildImage(String imageUrl) {
+    if (imageUrl.startsWith('http')) {
+      return Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+      );
+    }
+    return Image.file(
+      File(imageUrl),
+      fit: BoxFit.cover,
     );
   }
 }
