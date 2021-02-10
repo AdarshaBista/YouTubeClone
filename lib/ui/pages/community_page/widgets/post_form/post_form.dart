@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:youtube_clone/core/data/fake_data.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_clone/cubits/posts_cubit/posts_cubit.dart';
 import 'package:youtube_clone/cubits/post_form_cubit/post_form_cubit.dart';
@@ -75,10 +77,14 @@ class PostForm extends StatelessWidget {
   }
 
   Widget _buildUserInfo(BuildContext context) {
+    final user = FakeData.user;
     return ListTile(
-      leading: const UserAvatar(username: 'Abc'),
+      leading: UserAvatar(
+        username: user.name,
+        imageUrl: user.avatarUrl,
+      ),
       title: Text(
-        'Name',
+        user.name,
         style: context.t.headline4,
       ),
     );

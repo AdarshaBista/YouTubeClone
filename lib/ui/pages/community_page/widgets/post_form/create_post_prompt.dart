@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_clone/core/data/fake_data.dart';
 
 import 'package:youtube_clone/core/services/posts_service.dart';
 import 'package:youtube_clone/core/services/image_picker_service.dart';
@@ -20,7 +21,10 @@ class CreatePostPrompt extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const UserAvatar(username: 'Abc'),
+          UserAvatar(
+            username: FakeData.user.name,
+            imageUrl: FakeData.user.avatarUrl,
+          ),
           const SizedBox(width: 12.0),
           Expanded(child: _buildTextContainer(context)),
         ],
