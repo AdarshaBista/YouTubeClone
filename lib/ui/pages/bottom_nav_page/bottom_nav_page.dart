@@ -16,6 +16,7 @@ class BottomNavPage extends StatefulWidget {
 
 class _BottomNavPageState extends State<BottomNavPage> {
   int _selectedIndex = 0;
+  final List<int> _navigationHistory = [];
 
   final _tabs = [
     BottomNavItem(
@@ -48,8 +49,11 @@ class _BottomNavPageState extends State<BottomNavPage> {
           child: Scaffold(
             bottomNavigationBar: BottomNavBar(
               tabs: _tabs,
-              onSelect: _selectTab,
               currentIndex: _selectedIndex,
+              onSelect: (index) {
+                _saveNavigationHistory(index);
+                _selectTab(index);
+              },
             ),
             body: IndexedStack(
               index: _selectedIndex,
@@ -59,6 +63,14 @@ class _BottomNavPageState extends State<BottomNavPage> {
         ),
       ),
     );
+  }
+
+  void _saveNavigationHistory(int tappedIndex) {
+    final previousIndex = _selectedIndex;
+    _navigationHistory.add(previousIndex);
+    if (_navigationHistory.contains(tappedIndex)) {
+      _navigationHistory.remove(tappedIndex);
+    }
   }
 
   void _selectTab(int index) {
@@ -74,13 +86,24 @@ class _BottomNavPageState extends State<BottomNavPage> {
     // If the route cannot be popped, we are on the first route of the tab.
     final isFirstRouteInCurrentTab =
         !await _tabs[_selectedIndex].key.currentState.maybePop();
-    if (isFirstRouteInCurrentTab) {
-      if (_selectedIndex != 0) {
-        // Navigate to home page.
-        _selectTab(0);
-        return false;
-      }
+
+    // Do no pop if we are not on the first route of the tab.
+    if (!isFirstRouteInCurrentTab) return false;
+
+    // If the _navigationHistory is empty,
+    // Either exit the app
+    // Or go to the first tab.
+    if (_navigationHistory.isEmpty) {
+      if (_selectedIndex == 0) return true;
+
+      _selectTab(0);
+      return false;
     }
-    return isFirstRouteInCurrentTab;
+
+    // If the _navigationHistory is not empty,
+    // Navigate to the previous tab in history.
+    final nextTab = _navigationHistory.removeLast();
+    _selectTab(nextTab);
+    return false;
   }
 }

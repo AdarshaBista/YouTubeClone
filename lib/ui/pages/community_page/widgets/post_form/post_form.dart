@@ -77,7 +77,7 @@ class PostForm extends StatelessWidget {
   }
 
   Widget _buildUserInfo(BuildContext context) {
-    final user = FakeData.user;
+    const user = FakeData.user;
     return ListTile(
       leading: UserAvatar(
         username: user.name,
