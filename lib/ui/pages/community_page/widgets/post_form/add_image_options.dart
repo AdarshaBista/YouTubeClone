@@ -51,7 +51,6 @@ class _ImageOptionTile extends StatelessWidget {
     return ListTile(
       dense: true,
       onTap: onTap,
-      horizontalTitleGap: 0.0,
       leading: Icon(
         icon,
         size: 20.0,

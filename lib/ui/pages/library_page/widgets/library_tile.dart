@@ -26,7 +26,6 @@ class LibraryTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListTile(
         onTap: onTap,
-        horizontalTitleGap: 10.0,
         visualDensity: VisualDensity.compact,
         leading: leading,
         subtitle: subtitle,

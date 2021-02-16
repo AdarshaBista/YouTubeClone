@@ -35,7 +35,6 @@ class AppThemes {
         accentIconTheme: _darkIconTheme,
         primaryIconTheme: _darkIconTheme,
         cardTheme: _lightCardTheme,
-        chipTheme: _lightChipTheme,
         dividerTheme: _dividerTheme,
         appBarTheme: _lightAppBarTheme,
         tabBarTheme: _lightTabBarTheme,
@@ -61,7 +60,6 @@ class AppThemes {
         accentIconTheme: _lightIconTheme,
         primaryIconTheme: _lightIconTheme,
         cardTheme: _darkCardTheme,
-        chipTheme: _darkChipTheme,
         dividerTheme: _dividerTheme,
         appBarTheme: _darkAppBarTheme,
         tabBarTheme: _darkTabBarTheme,
@@ -288,25 +286,6 @@ class AppThemes {
       _lightPopupMenuTheme.copyWith(
         color: AppColors.darkSurface,
         textStyle: AppTextStyles.headline5.lightAccent,
-      );
-
-  static ChipThemeData get _lightChipTheme => ChipThemeData(
-        padding: EdgeInsets.zero,
-        brightness: Brightness.light,
-        selectedColor: AppColors.primaryDark,
-        secondarySelectedColor: AppColors.primaryDark,
-        disabledColor: AppColors.lightFaded,
-        backgroundColor: AppColors.lightAccent,
-        labelStyle: AppTextStyles.headline6,
-        secondaryLabelStyle: AppTextStyles.headline6,
-      );
-
-  static ChipThemeData get _darkChipTheme => _lightChipTheme.copyWith(
-        brightness: Brightness.dark,
-        disabledColor: AppColors.darkFaded,
-        backgroundColor: AppColors.darkAccent,
-        labelStyle: AppTextStyles.headline6.darkFaded,
-        secondaryLabelStyle: AppTextStyles.headline6.darkFaded,
       );
 
   static BottomNavigationBarThemeData get _lightBottomNavigationBarTheme =>

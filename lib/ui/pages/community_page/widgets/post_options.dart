@@ -27,7 +27,10 @@ class PostOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       onSelected: (selected) => _handleOption(context, selected),
-      iconSize: 20.0,
+      child: const Icon(
+        Icons.more_vert_outlined,
+        size: 20.0,
+      ),
       itemBuilder: (context) {
         return [
           PopupMenuItem(
