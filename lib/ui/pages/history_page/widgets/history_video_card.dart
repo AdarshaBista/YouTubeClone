@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:youtube_clone/core/models/video.dart';
 
 import 'package:youtube_clone/ui/styles/styles.dart';
+import 'package:youtube_clone/ui/widgets/common/page_transition.dart';
 import 'package:youtube_clone/ui/widgets/video/video_title.dart';
 import 'package:youtube_clone/ui/widgets/video/video_thumbnail.dart';
+
+import 'package:youtube_clone/ui/pages/history_detail_page/history_detail_page.dart';
 
 class HistoryVideoCard extends StatelessWidget {
   final Video video;
@@ -15,24 +18,28 @@ class HistoryVideoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            flex: 9,
-            child: VideoThumbnail(
-              imageUrl: video.thumbnailUrl,
-              duration: video.duration,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => _navigateToDetailPage(context),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 9,
+              child: VideoThumbnail(
+                imageUrl: video.thumbnailUrl,
+                duration: video.duration,
+              ),
             ),
-          ),
-          const SizedBox(width: 12.0),
-          Flexible(
-            flex: 12,
-            child: _buildDetails(context),
-          ),
-        ],
+            const SizedBox(width: 12.0),
+            Flexible(
+              flex: 12,
+              child: _buildDetails(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -53,6 +60,14 @@ class HistoryVideoCard extends StatelessWidget {
           style: context.t.headline6,
         ),
       ],
+    );
+  }
+
+  void _navigateToDetailPage(BuildContext context) {
+    Navigator.of(context).push(
+      PageTransition(
+        page: const HistoryDetailPage(),
+      ),
     );
   }
 }

@@ -36,6 +36,7 @@ class VideoSearchDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
+      primaryColor: context.c.background,
       textTheme: TextTheme(subtitle1: context.t.headline5),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: context.t.headline5,

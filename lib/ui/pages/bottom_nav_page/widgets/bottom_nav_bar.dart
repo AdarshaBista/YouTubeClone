@@ -49,7 +49,6 @@ class BottomNavItem {
   final IconData activeIcon;
 
   final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
-  int index = 0;
 
   BottomNavItem({
     @required this.title,
