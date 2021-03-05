@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:youtube_clone/core/models/video.dart';
 
 import 'package:youtube_clone/ui/styles/styles.dart';
-import 'package:youtube_clone/ui/widgets/common/page_transition.dart';
 import 'package:youtube_clone/ui/widgets/video/video_title.dart';
 import 'package:youtube_clone/ui/widgets/video/video_thumbnail.dart';
-
-import 'package:youtube_clone/ui/pages/history_detail_page/history_detail_page.dart';
 
 class HistoryVideoCard extends StatelessWidget {
   final Video video;
@@ -64,10 +61,6 @@ class HistoryVideoCard extends StatelessWidget {
   }
 
   void _navigateToDetailPage(BuildContext context) {
-    Navigator.of(context).push(
-      PageTransition(
-        page: const HistoryDetailPage(),
-      ),
-    );
+    Navigator.of(context).pushNamed('/history_detail');
   }
 }

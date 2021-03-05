@@ -7,11 +7,14 @@ class NestedNavigator extends StatelessWidget {
 
   final Widget child;
   final WillPopCallback onBackButtonPressed;
+  final Widget Function(RouteSettings) pageBuilder;
 
   NestedNavigator({
-    @required this.child,
     this.onBackButtonPressed,
-  }) : assert(child != null);
+    @required this.child,
+    @required this.pageBuilder,
+  })  : assert(child != null),
+        assert(pageBuilder != null);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,10 @@ class NestedNavigator extends StatelessWidget {
       },
       child: Navigator(
         key: _key,
-        onGenerateRoute: (_) => PageTransition(page: child),
+        onGenerateRoute: (settings) {
+          final page = settings.name == '/' ? child : pageBuilder(settings);
+          return PageTransition(page: page);
+        },
       ),
     );
   }
