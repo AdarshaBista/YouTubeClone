@@ -4,10 +4,7 @@ A clone of the android YouTube app with added functionality for creating, editin
 
 ## Prerequisites
 
-Ensure you have flutter installed on your system. This project was built on the dev channel, however, using any other channel should also be fine. If you run into any issues, switch to the dev channel using:
-```
-flutter channel dev
-```
+Ensure you have flutter installed on your system.
 
 ## Running the app
 
@@ -22,7 +19,7 @@ https://github.com/AdarshaBista/YouTubeClone.git
 
 Go to project root and execute the following command in terminal:
 ```
-flutter pub get 
+flutter pub get
 ```
 
 **Step 3:**
